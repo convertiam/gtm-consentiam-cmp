@@ -1,5 +1,5 @@
 homepage: "https://www.consentiam.eu"
 documentation: "https://www.consentiam.eu/docs/gtm"
 versions:
-  - sha: dcc5ce6
+  - sha: e0f2e30
     changeNotes: Initial release v2.2.0
