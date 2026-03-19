@@ -1,10 +1,5 @@
 homepage: "https://www.consentiam.eu"
 documentation: "https://www.consentiam.eu/docs/gtm"
 versions:
-  - sha: PLACEHOLDER_REPLACE_WITH_COMMIT_SHA
-    changeNotes: >
-      Initial release v2.2.0. Lightweight cookie consent banner with
-      Google Consent Mode v2. EEA regions enabled by default.
-      Automatic and Optimized installation modes.
-      Microsoft Consent Mode support (Clarity + Bing).
-      Multi-language support with auto-detection or manual override.
+  - sha: dcc5ce6
+    changeNotes: Initial release v2.2.0
