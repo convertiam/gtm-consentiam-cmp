@@ -1,5 +1,7 @@
 homepage: "https://www.consentiam.eu"
 documentation: "https://www.consentiam.eu/docs/gtm"
 versions:
+  - sha: 3fefc10
+    changeNotes: "v2.4.0 - Fix Clarity consentv2 + createArgumentsQueue + UET dos-pasos"
   - sha: e0f2e30
-    changeNotes: Initial release v2.2.0
+    changeNotes: "Initial release v2.2.0"
