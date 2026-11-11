@@ -159,6 +159,7 @@ ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 
 const callInWindow = require('callInWindow');
 const copyFromWindow = require('copyFromWindow');
+const createArgumentsQueue = require('createArgumentsQueue');
 const createQueue = require('createQueue');
 const getCookieValues = require('getCookieValues');
 const gtagSet = require('gtagSet');
@@ -237,33 +238,33 @@ if (hasExistingConsent) {
   activeState = consentUpdate;
 }
 
+var adsRedaction = hasExistingConsent ? (consent.marketing !== true) : true;
+
 gtagSet({
   url_passthrough: data.url_passthrough || false,
-  ads_data_redaction: data.ads_data_redaction || false
+  ads_data_redaction: adsRedaction
 });
 
 if (data.platform_microsoft) {
   const uetq = createQueue('uetq');
   uetq('consent', 'default', {
-    'ad_storage': activeState.ad_storage
+    'ad_storage': defaultState.ad_storage
   });
+  if (hasExistingConsent) {
+    uetq('consent', 'update', {
+      'ad_storage': activeState.ad_storage
+    });
+  }
 
   let clarity = copyFromWindow('clarity');
   if (!clarity) {
-    createQueue('clarity.q');
-    setInWindow('clarity', function() {
-      const clarityQueue = copyFromWindow('clarity.q');
-      if (clarityQueue && clarityQueue.push) {
-        clarityQueue.push(arguments);
-      }
-    }, true);
-    clarity = copyFromWindow('clarity');
+    clarity = createArgumentsQueue('clarity', 'clarity.q');
   }
 
   if (clarity) {
-    clarity('consent', {
-      ad_storage: activeState.ad_storage,
-      analytics_storage: activeState.analytics_storage
+    clarity('consentv2', {
+      ad_Storage: activeState.ad_storage,
+      analytics_Storage: activeState.analytics_storage
     });
   }
 }
@@ -1051,9 +1052,9 @@ scenarios:
 
 ___NOTES___
 
-Consentiam CMP v2.2.0
+Consentiam CMP v2.4.0
 Developed by Convertiam.com
-Last updated: 2026-03
+Last updated: 2026-11
 https://www.consentiam.eu
 
 Two installation modes:
